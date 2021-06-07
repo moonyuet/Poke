@@ -1,0 +1,10 @@
+[submodule "Poke/vendor/spdlog"]
+	path = Poke/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "Poke/vendor/GLFW"]
+	path = Poke/vendor/GLFW
+	url = https://github.com/TheCherno/glfw.git
+[submodule "Poke/vendor/imgui"]
+	path = Poke/vendor/imgui
+	url = https://github.com/TheCherno/imgui.git
+
