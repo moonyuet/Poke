@@ -5,6 +5,9 @@
 
 #include "glad/glad.h"
 
+#include "Poke/Input.h"
+
+
 namespace Poke {
 #define BIND_EVENT_FN(x) std::bind(&App::x, this, std::placeholders::_1)
 	App* App::s_Instance = nullptr;
@@ -61,7 +64,9 @@ namespace Poke {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
 			m_Window->OnUpdate();
+
 		}
 	}
 	bool App::OnWindowClose(WindowCloseEvent& e)
