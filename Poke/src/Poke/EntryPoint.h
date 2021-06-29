@@ -8,9 +8,9 @@ extern Poke::App* Poke::CreateApp();
 int main(int argc, char** argv)
 {
 	Poke::Log::Init();
-	PK_CORE_WARN("Initialized Log!");
+	//PK_CORE_WARN("Initialized Log!");
 	
-	PK_INFO("Hello");
+	//PK_INFO("Hello");
 	auto app = Poke::CreateApp();
 	app->Run();
 	delete app;

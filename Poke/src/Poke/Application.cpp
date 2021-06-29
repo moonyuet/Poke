@@ -2,22 +2,26 @@
 #include "Application.h"
 #include "Log.h"
 
-
-#include "glad/glad.h"
-
+#include "Poke/Renderer/Renderer.h"
 #include "Poke/Input.h"
 
+#include <glfw/glfw3.h>
 
 namespace Poke {
 #define BIND_EVENT_FN(x) std::bind(&App::x, this, std::placeholders::_1)
 	App* App::s_Instance = nullptr;
 
+
 	App::App()
+		
 	{
 		PK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 
 	}
 
@@ -44,8 +48,6 @@ namespace Poke {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		
-		PK_CORE_TRACE("{0}", e);
-
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
 			(*--it)->OnEvent(e);
@@ -59,11 +61,17 @@ namespace Poke {
 	{
 		while (m_Running)
 		{
-			glClearColor(1.0f, 0.0f, 1.0f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			float time = (float)glfwGetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 

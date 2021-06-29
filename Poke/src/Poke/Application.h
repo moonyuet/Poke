@@ -6,7 +6,17 @@
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 
+#include "Poke/Core/Timestep.h"
 
+#include "Poke/ImGui/ImGuiLayer.h"
+
+#include "Poke/Renderer/Shader.h"
+
+#include "Poke/Renderer/Buffer.h"
+
+#include "Poke/Renderer/VertexArray.h"
+
+#include "Poke/Renderer/OrthographicCamera.h"
 namespace Poke {
 	class POKE_API App
 	{
@@ -31,10 +41,11 @@ namespace Poke {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 		static App* s_Instance;
-	
 	};
 	
 	App* CreateApp();
