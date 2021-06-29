@@ -1,14 +1,17 @@
 #pragma once
 #include <memory>
 #ifdef PK_PLATFORM_WINDOWS
+#if PK_DYNAMIC_LINKS
 	#ifdef PK_BUILD_DLL
 		#define POKE_API __declspec(dllexport)
 	#else
 		#define POKE_API __declspec(dllimport)
 #endif
+#else 
+	#define POKE_API
+#endif
 #else
-	#error Poke only support Windows!
-
+	#error Poke only supports Windows!
 #endif
 
 #ifdef PK_DEBUG
