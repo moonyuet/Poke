@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+
 #ifdef PK_PLATFORM_WINDOWS
 #if PK_DYNAMIC_LINKS
 	#ifdef PK_BUILD_DLL
@@ -32,3 +33,4 @@ namespace Poke {
 #define BIT(x) (1 << x)
 
 #define PK_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+

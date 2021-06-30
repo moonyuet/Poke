@@ -21,7 +21,7 @@ class ExampleLayer : public Poke::Layer
 				 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 				 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 			};
-			std::shared_ptr<Poke::VertexBuffer> vertexBuffer;
+			Poke::Ref<Poke::VertexBuffer> vertexBuffer;
 			vertexBuffer.reset(Poke::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 			Poke::BufferLayout layout = {
@@ -33,7 +33,7 @@ class ExampleLayer : public Poke::Layer
 			m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 			uint32_t indices[3] = { 0, 1, 2 };
-			std::shared_ptr<Poke::IndexBuffer> indexBuffer;
+			Poke::Ref<Poke::IndexBuffer> indexBuffer;
 			indexBuffer.reset(Poke::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 			m_VertexArray->AddIndexBuffer(indexBuffer);
 
@@ -45,7 +45,7 @@ class ExampleLayer : public Poke::Layer
 				 0.5f,  0.5f, 0.0f,
 				-0.5f,  0.5f, 0.0f
 			};
-			std::shared_ptr<Poke::VertexBuffer> squareVB;
+			Poke::Ref<Poke::VertexBuffer> squareVB;
 			squareVB.reset(Poke::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 			squareVB->SetLayout({
 					{Poke::ShaderDataType::Float3, "a_Position"},
@@ -54,7 +54,7 @@ class ExampleLayer : public Poke::Layer
 			m_SquareVA->AddVertexBuffer(squareVB);
 
 			uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-			std::shared_ptr<Poke::IndexBuffer> squareIB;
+			Poke::Ref<Poke::IndexBuffer> squareIB;
 			squareIB.reset(Poke::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 			m_SquareVA->AddIndexBuffer(squareIB);
 
@@ -195,11 +195,11 @@ class ExampleLayer : public Poke::Layer
 		}
 
 private:
-	std::shared_ptr<Poke::Shader>m_Shader;
-	std::shared_ptr<Poke::VertexArray> m_VertexArray;
+	Poke::Ref<Poke::Shader>m_Shader;
+	Poke::Ref<Poke::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Poke::Shader>m_FlatColorShader;
-	std::shared_ptr<Poke::VertexArray> m_SquareVA;
+	Poke::Ref<Poke::Shader>m_FlatColorShader;
+	Poke::Ref<Poke::VertexArray> m_SquareVA;
 
 	Poke::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
