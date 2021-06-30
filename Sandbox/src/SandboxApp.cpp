@@ -168,7 +168,7 @@ class ExampleLayer : public Poke::Layer
 				{
 					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					if(x%2 == 0 || y%2 == 0)
+					if(x%2 == 0 || y%3 == 0)
 						std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 					else
 						std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_Square2Col);
