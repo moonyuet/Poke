@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Poke/vendor/GLFW/include"
 IncludeDir["Glad"] = "Poke/vendor/Glad/include"
 IncludeDir["ImGui"] = "Poke/vendor/imgui"
 IncludeDir["glm"] = "Poke/vendor/glm"
+IncludeDir["stb_image"] = "Poke/vendor/stb_image"
 
 include "Poke/vendor/GLFW"
 include "Poke/vendor/Glad"
@@ -38,6 +39,8 @@ project "Poke"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 
@@ -55,7 +58,8 @@ project "Poke"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 	links
 	{

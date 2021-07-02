@@ -2,10 +2,11 @@
 
 #include "imgui/imgui.h"
 #include "Poke/Platform/OpenGL/OpenGLShader.h"
+
 #include <glm/gtc/matrix_transform.hpp>
-
-
 #include <glm/gtc/type_ptr.hpp>
+
+
 
 class ExampleLayer : public Poke::Layer
 {
@@ -39,17 +40,17 @@ class ExampleLayer : public Poke::Layer
 
 			m_SquareVA.reset(Poke::VertexArray::Create());
 
-			float squareVertices[3 * 4] = {
-				-0.5f, -0.5f, 0.0f,
-				 0.5f, -0.5f, 0.0f,
-				 0.5f,  0.5f, 0.0f,
-				-0.5f,  0.5f, 0.0f
+			float squareVertices[5 * 4] = {
+				-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+				 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+				 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+				-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 			};
 			Poke::Ref<Poke::VertexBuffer> squareVB;
 			squareVB.reset(Poke::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 			squareVB->SetLayout({
 					{Poke::ShaderDataType::Float3, "a_Position"},
-
+					{Poke::ShaderDataType::Float2, "a_TexCoord"}
 				});
 			m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -92,7 +93,8 @@ class ExampleLayer : public Poke::Layer
 			}
 		)";
 
-			m_Shader.reset(Poke::Shader::Create(vertexSrc, fragmentSrc));
+			m_Shader= Poke::Shader::Create("VertexPosColor",vertexSrc, fragmentSrc);
+			
 
 			std::string flatColorShadervertexSrc = R"(
 			#version 330 core
@@ -127,7 +129,15 @@ class ExampleLayer : public Poke::Layer
 			}
 		)";
 
-			m_FlatColorShader.reset(Poke::Shader::Create(flatColorShadervertexSrc, flatColorShaderfragmentSrc));
+			m_FlatColorShader= Poke::Shader::Create("FlatColor",flatColorShadervertexSrc, flatColorShaderfragmentSrc);
+
+			auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
+			m_Texture = Poke::Texture2D::Create("assets/texture/TK018_basecolor.png");
+			m_cameraTexture = Poke::Texture2D::Create("assets/texture/camera.png");
+
+			std::dynamic_pointer_cast<Poke::OpenGLShader>(textureShader)->Bind();
+			std::dynamic_pointer_cast<Poke::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+
 		}
 
 		void OnUpdate(Poke::Timestep ts) override
@@ -160,7 +170,7 @@ class ExampleLayer : public Poke::Layer
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 			std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->Bind();
-			//std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+			std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 			for (int y = 0; y < 20; y++)
 			{
@@ -168,16 +178,21 @@ class ExampleLayer : public Poke::Layer
 				{
 					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					if(x%2 == 0 || y%3 == 0)
-						std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
-					else
-						std::dynamic_pointer_cast<Poke::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_Square2Col);
+				
 					Poke::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 				}
 			}
-			
-			
-			Poke::Renderer::Submit(m_Shader, m_VertexArray);
+
+			auto textureShader = m_ShaderLibrary.Get("Texture");
+
+			m_Texture->Bind();
+			Poke::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+			m_cameraTexture->Bind();
+			Poke::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+			//Triangle
+			//Poke::Renderer::Submit(m_Shader, m_VertexArray);
 
 			Poke::Renderer::EndScene();
 		}
@@ -186,7 +201,6 @@ class ExampleLayer : public Poke::Layer
 		{
 			ImGui::Begin("Settings");
 			ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
-			ImGui::ColorEdit3("Square2 Color", glm::value_ptr(m_Square2Col));
 			ImGui::End();
 		}
 		void OnEvent(Poke::Event& event) override
@@ -195,11 +209,14 @@ class ExampleLayer : public Poke::Layer
 		}
 
 private:
+	Poke::ShaderLibrary m_ShaderLibrary;
 	Poke::Ref<Poke::Shader>m_Shader;
 	Poke::Ref<Poke::VertexArray> m_VertexArray;
 
 	Poke::Ref<Poke::Shader>m_FlatColorShader;
 	Poke::Ref<Poke::VertexArray> m_SquareVA;
+
+	Poke::Ref<Poke::Texture2D> m_Texture, m_cameraTexture;
 
 	Poke::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
