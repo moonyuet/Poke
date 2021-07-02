@@ -19,6 +19,7 @@
 
 #include "Poke/Renderer/Buffer.h"
 #include "Poke/Renderer/Shader.h"
+#include "Poke/Renderer/Texture.h"
 #include "Poke/Renderer/VertexArray.h"
 
 #include "Poke/Renderer/OrthographicCamera.h"
