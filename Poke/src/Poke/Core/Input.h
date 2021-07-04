@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Poke/Core.h"
+#include "Core.h"
 
 namespace Poke {
 	class POKE_API Input

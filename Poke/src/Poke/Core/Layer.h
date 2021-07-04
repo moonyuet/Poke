@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Core.h"
-#include "Poke/Core/Timestep.h"
-#include "Events/Event.h"
+#include "Timestep.h"
+#include "Poke/Events/Event.h"
 namespace Poke {
 	class POKE_API Layer
 	{

@@ -1,5 +1,5 @@
 #pragma once
-#include "Poke/Window.h"
+#include "Poke/Core/Window.h"
 #include "Poke/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

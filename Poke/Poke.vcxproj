@@ -141,21 +141,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Poke.h" />
-    <ClInclude Include="src\Poke\Application.h" />
-    <ClInclude Include="src\Poke\Core.h" />
+    <ClInclude Include="src\Poke\Core\Application.h" />
+    <ClInclude Include="src\Poke\Core\Core.h" />
+    <ClInclude Include="src\Poke\Core\EntryPoint.h" />
+    <ClInclude Include="src\Poke\Core\Input.h" />
+    <ClInclude Include="src\Poke\Core\KeyCodes.h" />
+    <ClInclude Include="src\Poke\Core\Layer.h" />
+    <ClInclude Include="src\Poke\Core\LayerStack.h" />
+    <ClInclude Include="src\Poke\Core\Log.h" />
+    <ClInclude Include="src\Poke\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Poke\Core\Timestep.h" />
-    <ClInclude Include="src\Poke\EntryPoint.h" />
+    <ClInclude Include="src\Poke\Core\Window.h" />
     <ClInclude Include="src\Poke\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Poke\Events\Event.h" />
     <ClInclude Include="src\Poke\Events\KeyEvent.h" />
     <ClInclude Include="src\Poke\Events\MouseEvent.h" />
     <ClInclude Include="src\Poke\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Poke\Input.h" />
-    <ClInclude Include="src\Poke\KeyCodes.h" />
-    <ClInclude Include="src\Poke\Layer.h" />
-    <ClInclude Include="src\Poke\LayerStack.h" />
-    <ClInclude Include="src\Poke\Log.h" />
-    <ClInclude Include="src\Poke\MouseButtonCodes.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -167,13 +168,13 @@
     <ClInclude Include="src\Poke\Renderer\Buffer.h" />
     <ClInclude Include="src\Poke\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Poke\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Poke\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\Poke\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Poke\Renderer\Renderer.h" />
     <ClInclude Include="src\Poke\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Poke\Renderer\Shader.h" />
     <ClInclude Include="src\Poke\Renderer\Texture.h" />
     <ClInclude Include="src\Poke\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Poke\Window.h" />
     <ClInclude Include="src\pkpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -593,12 +594,12 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Poke\Application.cpp" />
+    <ClCompile Include="src\Poke\Core\Application.cpp" />
+    <ClCompile Include="src\Poke\Core\Layer.cpp" />
+    <ClCompile Include="src\Poke\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Poke\Core\Log.cpp" />
     <ClCompile Include="src\Poke\ImGui\ImGuiImplBuild.cpp" />
     <ClCompile Include="src\Poke\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Poke\Layer.cpp" />
-    <ClCompile Include="src\Poke\LayerStack.cpp" />
-    <ClCompile Include="src\Poke\Log.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLRendererAPI.cpp" />
@@ -609,6 +610,7 @@
     <ClCompile Include="src\Poke\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Poke\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Poke\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Poke\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Poke\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Poke\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Poke\Renderer\RendererAPI.cpp" />

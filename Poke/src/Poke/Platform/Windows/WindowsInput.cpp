@@ -1,7 +1,7 @@
 #include "pkpch.h"
 #include "WindowsInput.h"
 
-#include "Poke/Application.h"
+#include "Poke/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Poke {

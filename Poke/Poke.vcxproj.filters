@@ -57,17 +57,38 @@
     <ClInclude Include="src\Poke.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\Application.h">
-      <Filter>src\Poke</Filter>
+    <ClInclude Include="src\Poke\Core\Application.h">
+      <Filter>src\Poke\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\Core.h">
-      <Filter>src\Poke</Filter>
+    <ClInclude Include="src\Poke\Core\Core.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\EntryPoint.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\Input.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\KeyCodes.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\Layer.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\LayerStack.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\Log.h">
+      <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Core\MouseButtonCodes.h">
+      <Filter>src\Poke\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Core\Timestep.h">
       <Filter>src\Poke\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\EntryPoint.h">
-      <Filter>src\Poke</Filter>
+    <ClInclude Include="src\Poke\Core\Window.h">
+      <Filter>src\Poke\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Events\ApplicationEvent.h">
       <Filter>src\Poke\Events</Filter>
@@ -83,24 +104,6 @@
     </ClInclude>
     <ClInclude Include="src\Poke\ImGui\ImGuiLayer.h">
       <Filter>src\Poke\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\Input.h">
-      <Filter>src\Poke</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\KeyCodes.h">
-      <Filter>src\Poke</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\Layer.h">
-      <Filter>src\Poke</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\LayerStack.h">
-      <Filter>src\Poke</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\Log.h">
-      <Filter>src\Poke</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\MouseButtonCodes.h">
-      <Filter>src\Poke</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Poke\Platform\OpenGL</Filter>
@@ -135,6 +138,9 @@
     <ClInclude Include="src\Poke\Renderer\OrthographicCamera.h">
       <Filter>src\Poke\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Poke\Renderer\OrthographicCameraController.h">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Poke\Renderer\RenderCommand.h">
       <Filter>src\Poke\Renderer</Filter>
     </ClInclude>
@@ -152,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="src\Poke\Renderer\VertexArray.h">
       <Filter>src\Poke\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Poke\Window.h">
-      <Filter>src\Poke</Filter>
     </ClInclude>
     <ClInclude Include="src\pkpch.h">
       <Filter>src</Filter>
@@ -1409,23 +1412,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Poke\Application.cpp">
-      <Filter>src\Poke</Filter>
+    <ClCompile Include="src\Poke\Core\Application.cpp">
+      <Filter>src\Poke\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Core\Layer.cpp">
+      <Filter>src\Poke\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Core\LayerStack.cpp">
+      <Filter>src\Poke\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Core\Log.cpp">
+      <Filter>src\Poke\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\ImGui\ImGuiImplBuild.cpp">
       <Filter>src\Poke\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\ImGui\ImGuiLayer.cpp">
       <Filter>src\Poke\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Poke\Layer.cpp">
-      <Filter>src\Poke</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Poke\LayerStack.cpp">
-      <Filter>src\Poke</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Poke\Log.cpp">
-      <Filter>src\Poke</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Poke\Platform\OpenGL</Filter>
@@ -1455,6 +1458,9 @@
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\RenderCommand.cpp">

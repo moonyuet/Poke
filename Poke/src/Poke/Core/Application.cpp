@@ -3,7 +3,7 @@
 #include "Log.h"
 
 #include "Poke/Renderer/Renderer.h"
-#include "Poke/Input.h"
+#include "Input.h"
 
 #include <glfw/glfw3.h>
 
@@ -49,6 +49,7 @@ namespace Poke {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -66,10 +67,13 @@ namespace Poke {
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
+			
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
-
+			}
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
@@ -86,6 +90,18 @@ namespace Poke {
 		
 		return true;
 		
+	}
+	bool App::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+		return false;
 	}
 }
 

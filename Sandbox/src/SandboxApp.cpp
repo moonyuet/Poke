@@ -12,10 +12,10 @@ class ExampleLayer : public Poke::Layer
 {
 	public:
 		ExampleLayer()
-			: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+			: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 		{
 			m_VertexArray.reset(Poke::VertexArray::Create());
-
+			
 
 			float vertices[3 * 7] = {
 				-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -142,30 +142,14 @@ class ExampleLayer : public Poke::Layer
 
 		void OnUpdate(Poke::Timestep ts) override
 		{
-			float time = ts;
+			//Update
+			m_CameraController.OnUpdate(ts);
 
-			if (Poke::Input::IsKeyPressed(PK_KEY_LEFT))
-				m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-			else if (Poke::Input::IsKeyPressed(PK_KEY_RIGHT))
-				m_CameraPosition.x += m_CameraMoveSpeed * ts;
-
-			if (Poke::Input::IsKeyPressed(PK_KEY_UP))
-				m_CameraPosition.y += m_CameraMoveSpeed * ts;
-			else if (Poke::Input::IsKeyPressed(PK_KEY_DOWN))
-				m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-			
-			if (Poke::Input::IsKeyPressed(PK_KEY_A))
-				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (Poke::Input::IsKeyPressed(PK_KEY_D))
-				m_CameraRotation -= m_CameraRotationSpeed * ts;
-
+			//Render
 			Poke::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			Poke::RenderCommand::Clear();
 
-			m_Camera.SetPosition(m_CameraPosition);
-			m_Camera.SetRotation(m_CameraRotation);
-
-			Poke::Renderer::BeginScene(m_Camera);
+			Poke::Renderer::BeginScene(m_CameraController.GetCamera());
 
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -205,7 +189,7 @@ class ExampleLayer : public Poke::Layer
 		}
 		void OnEvent(Poke::Event& event) override
 		{
-
+			m_CameraController.OnEvent(event);
 		}
 
 private:
@@ -218,15 +202,9 @@ private:
 
 	Poke::Ref<Poke::Texture2D> m_Texture, m_cameraTexture;
 
-	Poke::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 5.0f;
-
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 180.0f;
+	Poke::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
-	glm::vec3 m_Square2Col = { 0.0f, 0.4f, 0.9f };
 	
 	};
 	class  Sandbox :public Poke::App

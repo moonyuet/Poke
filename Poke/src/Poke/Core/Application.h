@@ -2,9 +2,9 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Poke/LayerStack.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "LayerStack.h"
+#include "Poke/Events/Event.h"
+#include "Poke/Events/ApplicationEvent.h"
 
 #include "Poke/Core/Timestep.h"
 
@@ -39,10 +39,12 @@ namespace Poke {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
-
+		bool OnWindowResize(WindowResizeEvent& e);
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
 		static App* s_Instance;
