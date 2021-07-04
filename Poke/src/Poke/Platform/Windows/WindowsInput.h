@@ -1,5 +1,5 @@
 #pragma once
-#include "Poke/Input.h"
+#include "Poke/Core/Input.h"
 
 namespace Poke {
 

@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Poke/Log.h"
+#include "Poke/Core/Log.h"
 
 #ifdef PK_PLATFORM_WINDOWS
 	#include <Windows.h>
