@@ -16,6 +16,7 @@
 
 //----Renderer---------------------
 #include "Poke/Renderer/Renderer.h"
+#include "Poke/Renderer/Renderer2D.h"
 #include "Poke/Renderer/RenderCommand.h"
 
 #include "Poke/Renderer/Buffer.h"
@@ -25,5 +26,5 @@
 
 #include "Poke/Renderer/OrthographicCamera.h"
 //----Entry Point ---------
-#include "Poke/Core/EntryPoint.h"
+//#include "Poke/Core/EntryPoint.h"
 //----Entry Point ---------

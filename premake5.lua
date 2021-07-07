@@ -74,7 +74,6 @@ project "Poke"
 
 		defines
 		{
-			"PK_PLATFORM_WINDOWS",
 			"PK_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
@@ -129,10 +128,6 @@ project "Sandbox"
 		staticruntime "On"
 		systemversion "latest"
 
-		defines
-		{
-			"PK_PLATFORM_WINDOWS"
-		}
 	
 	filter "configurations:Debug"
 		defines "PK_DEBUG"
