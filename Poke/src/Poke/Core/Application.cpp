@@ -5,7 +5,7 @@
 #include "Poke/Renderer/Renderer.h"
 #include "Input.h"
 
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 namespace Poke {
 #define BIND_EVENT_FN(x) std::bind(&App::x, this, std::placeholders::_1)
@@ -34,6 +34,10 @@ namespace Poke {
 
 		Renderer::Shutdown();
 	}
+	void App::Close()
+	{
+		m_Running = false;
+	}
 
 	void App::PushLayer(Layer* layer)
 	{
@@ -59,11 +63,11 @@ namespace Poke {
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		for (auto it = m_LayerStack.begin(); it != m_LayerStack.end(); ++it)
 		{
-			(*--it)->OnEvent(e);
 			if (e.m_handled)
 				break;
+			(*it)->OnEvent(e);
 		}
 
 	}

@@ -1,7 +1,7 @@
 #pragma once
 #include "pkpch.h"
 
-#include "Core.h"
+#include "Base.h"
 #include "Poke/Events/Event.h"
 
 namespace Poke {

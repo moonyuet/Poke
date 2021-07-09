@@ -1,6 +1,6 @@
 #pragma once
 #include "pkpch.h"
-#include "Poke/Core/Core.h"
+#include "Poke/Core/Base.h"
 #include <string>
 #include <functional>
 

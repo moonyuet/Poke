@@ -10,6 +10,9 @@
     <Filter Include="src\Poke\Core">
       <UniqueIdentifier>{E31AEF24-4FDB-6A5B-1816-B4D88495AF37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Poke\Debug">
+      <UniqueIdentifier>{61D2DEC2-4DA0-D2C8-3634-43EF22A1AE2D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Poke\Events">
       <UniqueIdentifier>{2F714322-9BFC-B0E6-A40D-34DB10180DE7}</UniqueIdentifier>
     </Filter>
@@ -60,7 +63,7 @@
     <ClInclude Include="src\Poke\Core\Application.h">
       <Filter>src\Poke\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\Core\Core.h">
+    <ClInclude Include="src\Poke\Core\Base.h">
       <Filter>src\Poke\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Core\EntryPoint.h">
@@ -89,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="src\Poke\Core\Window.h">
       <Filter>src\Poke\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Debug\Instrumentor.h">
+      <Filter>src\Poke\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Events\ApplicationEvent.h">
       <Filter>src\Poke\Events</Filter>
@@ -145,6 +151,9 @@
       <Filter>src\Poke\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Renderer\Renderer.h">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Renderer\Renderer2D.h">
       <Filter>src\Poke\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Renderer\RendererAPI.h">
@@ -1410,8 +1419,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Poke\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Poke\Core\Application.cpp">
@@ -1459,6 +1466,9 @@
     <ClCompile Include="src\Poke\Renderer\Buffer.cpp">
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Poke\Renderer\GraphicsContext.cpp">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Poke\Renderer\OrthographicCamera.cpp">
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
@@ -1469,6 +1479,9 @@
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\Renderer.cpp">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Renderer\Renderer2D.cpp">
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\RendererAPI.cpp">
@@ -1489,7 +1502,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Poke\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\Poke\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

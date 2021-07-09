@@ -1,6 +1,6 @@
 #pragma once
 // For use by Poke apps
-
+#include "Poke/Core/Base.h"
 #include "Poke/Core/Application.h"
 #include "Poke/Core/Layer.h"
 #include "Poke/Core/Log.h"

@@ -56,12 +56,25 @@
 #endif
 
 #ifdef PK_DEBUG
+	#if defined(PK_PLATFORM_WINDOWS)
+		#define PK_DEBUGBREAK() __debugbreak()
+	#elif defined(PK_PLATFORM_LINUX)
+		#incude <signal.h>
+
+		#define PK_DEBUGBREAK() raise(SIGTRAP)
+	#else
+
+		#error "Platform doesn't support debugbreak yet!"
+	#endif
 	#define PK_ENABLE_ASSERTS
+#else
+
+	#define PK_DEBUGBREAK()
 #endif
 
 #ifdef PK_ENABLE_ASSERTS
-	#define PK_ASSERT(x,...){if(!(x)){PK_ERROR("Assertion Failed: {0}", __VA_ARGS__);__debugbreak();}}
-	#define PK_CORE_ASSERT(x,...){if(!(x)){PK_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__);__debugbreak();}}
+	#define PK_ASSERT(x,...){if(!(x)){PK_ERROR("Assertion Failed: {0}", __VA_ARGS__);PK_DEBUGBREAK();}}
+	#define PK_CORE_ASSERT(x,...){if(!(x)){PK_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__);PK_DEBUGBREAK();}}
 #else
 	#define PK_ASSERT(x,...)
 	#define PK_CORE_ASSERT(x,...)

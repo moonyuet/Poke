@@ -65,6 +65,13 @@ namespace Poke {
 		ImGui::DestroyContext();
 	}
 
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		e.m_handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+		e.m_handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+	}
+
 	void ImGuiLayer::Begin()
 	{
 		PK_PROFILE_FUNCTION();

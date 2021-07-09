@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Base.h"
 #include "Timestep.h"
 #include "Poke/Events/Event.h"
 namespace Poke {

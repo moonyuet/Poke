@@ -142,7 +142,7 @@
   <ItemGroup>
     <ClInclude Include="src\Poke.h" />
     <ClInclude Include="src\Poke\Core\Application.h" />
-    <ClInclude Include="src\Poke\Core\Core.h" />
+    <ClInclude Include="src\Poke\Core\Base.h" />
     <ClInclude Include="src\Poke\Core\EntryPoint.h" />
     <ClInclude Include="src\Poke\Core\Input.h" />
     <ClInclude Include="src\Poke\Core\KeyCodes.h" />

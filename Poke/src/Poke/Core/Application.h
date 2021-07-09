@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.h"
+#include "Base.h"
 
 #include "Window.h"
 #include "LayerStack.h"
@@ -32,9 +32,9 @@ namespace Poke {
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
-
 		
 		inline Window& GetWindow() { return *m_Window; }
+		void Close();
 		inline static App& Get() { return *s_Instance; }
 
 	private:
