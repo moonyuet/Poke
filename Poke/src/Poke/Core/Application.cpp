@@ -5,20 +5,21 @@
 #include "Poke/Renderer/Renderer.h"
 #include "Input.h"
 
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 namespace Poke {
 #define BIND_EVENT_FN(x) std::bind(&App::x, this, std::placeholders::_1)
 	App* App::s_Instance = nullptr;
 
 
-	App::App()
-		
+	App::App(const std::string& name)
 	{
+		PK_PROFILE_FUNCTION();
+
 		PK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window = Window::Create(WindowProps(name));
+		m_Window->SetEventCallback(BIND_EVENT_FN(App::OnEvent));
 
 		Renderer::Init();
 
@@ -29,55 +30,80 @@ namespace Poke {
 
 	App::~App()
 	{
+		PK_PROFILE_FUNCTION();
 
+		Renderer::Shutdown();
+	}
+	void App::Close()
+	{
+		m_Running = false;
 	}
 
 	void App::PushLayer(Layer* layer)
 	{
+		PK_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
-		
 	}
 
 	void App::PushOverlay(Layer* layer)
 	{
+		PK_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
 
 	void App::OnEvent(Event& e)
 	{
+		PK_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(App::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(App::OnWindowResize));
 		
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		for (auto it = m_LayerStack.begin(); it != m_LayerStack.end(); ++it)
 		{
-			(*--it)->OnEvent(e);
 			if (e.m_handled)
 				break;
+			(*it)->OnEvent(e);
 		}
 
 	}
 
 	void App::Run()
 	{
+		PK_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			PK_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 			
 			if (!m_Minimized)
 			{
+				{
+					PK_PROFILE_SCOPE("LayerStack OnUpdates");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
+				
+			m_ImGuiLayer->Begin();
+			{
+				PK_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
 				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
+					layer->OnImGuiRender();
+			}
+			
+			m_ImGuiLayer->End();
 
 			}
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 
@@ -93,6 +119,8 @@ namespace Poke {
 	}
 	bool App::OnWindowResize(WindowResizeEvent& e)
 	{
+		PK_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

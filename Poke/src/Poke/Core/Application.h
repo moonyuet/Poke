@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.h"
+#include "Base.h"
 
 #include "Window.h"
 #include "LayerStack.h"
@@ -23,7 +23,7 @@ namespace Poke {
 		
 		
 	public:
-		App();
+		App(const std::string& name = "Poke Engine");
 		virtual ~App();
 
 		void Run();
@@ -32,10 +32,13 @@ namespace Poke {
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
-
 		
 		inline Window& GetWindow() { return *m_Window; }
-		inline static App& Get() { return *s_Instance; }
+		void Close();
+
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+
+		static App& Get() { return *s_Instance; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

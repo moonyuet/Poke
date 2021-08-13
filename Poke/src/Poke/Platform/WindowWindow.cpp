@@ -2,54 +2,67 @@
 
 #include "WindowWindow.h"
 
+#include "Poke/Core/Input.h"
 #include "Poke/Events/ApplicationEvent.h"
 #include "Poke/Events/KeyEvent.h"
 #include "Poke/Events/MouseEvent.h"
+
+#include "Poke/Renderer/Renderer.h"
+
 #include "Poke/Platform/OpenGL/OpenGLContext.h"
 
-#include <glad/glad.h>
 
 
 namespace Poke {
-	static bool s_GLFWInitalized = false;
+	static uint8_t s_GLFWWindowCount= 0;
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 	
 		PK_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WindowWindow(props);
-	}
 
 	WindowWindow::WindowWindow(const WindowProps& props)
 	{
+		PK_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 	WindowWindow::~WindowWindow()
 	{
+		PK_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 	void WindowWindow::Init(const WindowProps& props)
 	{
+		PK_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-		
-		//PK_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 
-		if (!s_GLFWInitalized)
+		if (s_GLFWWindowCount == 0)
 		{
+			PK_PROFILE_SCOPE("GLFWInit");
 			int success = glfwInit();
 			PK_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitalized = true;
+			
 		}
+		{
+			PK_PROFILE_SCOPE("glfwCreateWindow");
+			#if defined(PK_DEBUG)
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+			#endif
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
+		
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = GraphicsContext::Create(m_Window);
 
 		m_Context->Init();
 		
@@ -152,17 +165,29 @@ namespace Poke {
 
 	void WindowWindow::Shutdown()
 	{
+		PK_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+		{
+			glfwTerminate();
+		}
 	}
 
 	void WindowWindow::OnUpdate()
 	{
+		PK_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowWindow::SetVSync(bool enabled)
 	{
+		PK_PROFILE_FUNCTION();
+
 		if (enabled)
 			glfwSwapInterval(1);
 		else

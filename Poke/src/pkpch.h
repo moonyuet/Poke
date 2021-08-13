@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "Poke/Core/Log.h"
+#include "Poke/Debug/Instrumentor.h"
 
 #ifdef PK_PLATFORM_WINDOWS
 	#include <Windows.h>

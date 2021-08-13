@@ -17,10 +17,11 @@ namespace Poke
 		virtual void AddIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
 		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
-		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
+		virtual const Ref<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; }
 
 	private:
 		uint32_t m_RendererID;
+		uint32_t m_VertexBufferIndex = 0;
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
 		Ref<IndexBuffer> m_IndexBuffer;
 	};
