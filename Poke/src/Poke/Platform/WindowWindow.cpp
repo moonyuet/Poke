@@ -2,12 +2,15 @@
 
 #include "WindowWindow.h"
 
+#include "Poke/Core/Input.h"
 #include "Poke/Events/ApplicationEvent.h"
 #include "Poke/Events/KeyEvent.h"
 #include "Poke/Events/MouseEvent.h"
+
+#include "Poke/Renderer/Renderer.h"
+
 #include "Poke/Platform/OpenGL/OpenGLContext.h"
 
-#include <glad/glad.h>
 
 
 namespace Poke {
@@ -18,10 +21,6 @@ namespace Poke {
 		PK_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WindowWindow(props);
-	}
 
 	WindowWindow::WindowWindow(const WindowProps& props)
 	{
@@ -53,7 +52,11 @@ namespace Poke {
 			
 		}
 		{
-			PK_PROFILE_SCOPE("GLFWCreateWindow");
+			PK_PROFILE_SCOPE("glfwCreateWindow");
+			#if defined(PK_DEBUG)
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+			#endif
 			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 			++s_GLFWWindowCount;
 		}

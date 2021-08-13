@@ -5,7 +5,7 @@
 
 namespace Poke {
 
-	class POKE_API KeyEvent : public Event
+	class  KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -18,7 +18,7 @@ namespace Poke {
 		int m_KeyCode;
 	};
 
-	class POKE_API KeyPressedEvent : public KeyEvent
+	class  KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -36,7 +36,7 @@ namespace Poke {
 	private:
 		int m_RepeatCount;
 	};
-	class POKE_API KeyReleasedEvent : public KeyEvent
+	class  KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -51,7 +51,7 @@ namespace Poke {
 		EVENT_CLASS_TYPE(KeyReleased)
 
 	};
-	class POKE_API KeyTypedEvent : public KeyEvent
+	class  KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)

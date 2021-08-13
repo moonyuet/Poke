@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 	app->Run();
 	PK_PROFILE_END_SESSION();
 
-	PK_PROFILE_BEGIN_SESSION("Startup", "PokeProfile-Shutdown.json");
+	PK_PROFILE_BEGIN_SESSION("Shutdown", "PokeProfile-Shutdown.json");
 	delete app;
 	PK_PROFILE_END_SESSION();
 }

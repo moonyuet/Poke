@@ -4,7 +4,7 @@
 #include "Timestep.h"
 #include "Poke/Events/Event.h"
 namespace Poke {
-	class POKE_API Layer
+	class  Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

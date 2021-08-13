@@ -43,6 +43,8 @@ namespace Poke {
 		}
 
 		bool m_handled = false;
+
+		virtual ~Event() = default;
 	};
 
 	// Class Event Dispatcher

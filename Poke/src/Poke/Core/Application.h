@@ -23,7 +23,7 @@ namespace Poke {
 		
 		
 	public:
-		App();
+		App(const std::string& name = "Poke Engine");
 		virtual ~App();
 
 		void Run();
@@ -35,7 +35,10 @@ namespace Poke {
 		
 		inline Window& GetWindow() { return *m_Window; }
 		void Close();
-		inline static App& Get() { return *s_Instance; }
+
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+
+		static App& Get() { return *s_Instance; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

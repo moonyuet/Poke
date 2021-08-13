@@ -17,9 +17,8 @@ private:
 	
 	Poke::OrthographicCameraController m_CameraController;
 
-	Poke::Ref<Poke::VertexArray> m_SquareVA;
+	Poke::Ref<Poke::VertexArray> m_SquareVA; 
 	Poke::Ref<Poke::Shader> m_FlatColorShader;
-
 	Poke::Ref<Poke::Texture2D> m_FabricTexture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f ,1.0f};

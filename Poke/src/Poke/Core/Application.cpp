@@ -12,14 +12,14 @@ namespace Poke {
 	App* App::s_Instance = nullptr;
 
 
-	App::App()
+	App::App(const std::string& name)
 	{
 		PK_PROFILE_FUNCTION();
 
 		PK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window = Window::Create(WindowProps(name));
+		m_Window->SetEventCallback(BIND_EVENT_FN(App::OnEvent));
 
 		Renderer::Init();
 
@@ -60,8 +60,8 @@ namespace Poke {
 		PK_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(App::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(App::OnWindowResize));
 		
 		for (auto it = m_LayerStack.begin(); it != m_LayerStack.end(); ++it)
 		{

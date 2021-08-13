@@ -29,15 +29,10 @@ namespace Poke {
 
 	class Instrumentor
 	{
-	private:
-		std::mutex m_Mutex;
-		InstrumentationSession* m_CurrentSession;
-		std::ofstream m_OutputStream;
+	
 	public:
-		Instrumentor()
-			: m_CurrentSession(nullptr)
-		{
-		}
+		Instrumentor(const Instrumentor&) = delete;
+		Instrumentor(Instrumentor&&) = delete;
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 		{
@@ -106,6 +101,15 @@ namespace Poke {
 		}
 
 	private:
+		Instrumentor()
+			: m_CurrentSession(nullptr)
+		{
+		}
+
+		~Instrumentor()
+		{
+			EndSession();
+		}
 
 		void WriteHeader()
 		{
@@ -131,6 +135,11 @@ namespace Poke {
 				m_CurrentSession = nullptr;
 			}
 		}
+
+	private:
+		std::mutex m_Mutex;
+		InstrumentationSession* m_CurrentSession;
+		std::ofstream m_OutputStream;
 
 	};
 
@@ -220,8 +229,10 @@ namespace Poke {
 
 #define PK_PROFILE_BEGIN_SESSION(name, filepath) ::Poke::Instrumentor::Get().BeginSession(name, filepath)
 #define PK_PROFILE_END_SESSION() ::Poke::Instrumentor::Get().EndSession()
-#define PK_PROFILE_SCOPE(name) constexpr auto fixedName = ::Poke::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-									::Poke::InstrumentationTimer timer##__LINE__(fixedName.Data)
+#define PK_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Poke::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+											   ::Poke::InstrumentationTimer timer##line(fixedName##line.Data)
+#define PK_PROFILE_SCOPE_LINE(name, line) PK_PROFILE_SCOPE_LINE2(name, line)
+#define PK_PROFILE_SCOPE(name) PK_PROFILE_SCOPE_LINE(name, __LINE__)
 #define PK_PROFILE_FUNCTION() PK_PROFILE_SCOPE(PK_FUNC_SIG)
 #else
 #define PK_PROFILE_BEGIN_SESSION(name, filepath)

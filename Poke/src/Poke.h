@@ -9,11 +9,15 @@
 
 #include "Poke/Core/Input.h"
 #include "Poke/Core/KeyCodes.h"
-#include "Poke/Core/MouseButtonCodes.h"
+#include "Poke/Core/MouseCodes.h"
 #include "Poke/Renderer/OrthographicCameraController.h"
 
 #include "Poke/ImGui/ImGuiLayer.h"
 
+#include "Poke/Scene/Scene.h"
+#include "Poke/Scene/Entity.h"
+#include "Poke/Scene/ScriptableEntity.h"
+#include "Poke/Scene/Components.h"
 //----Renderer---------------------
 #include "Poke/Renderer/Renderer.h"
 #include "Poke/Renderer/Renderer2D.h"
@@ -21,6 +25,7 @@
 
 #include "Poke/Renderer/Buffer.h"
 #include "Poke/Renderer/Shader.h"
+#include "Poke/Renderer/Framebuffer.h"
 #include "Poke/Renderer/Texture.h"
 #include "Poke/Renderer/VertexArray.h"
 

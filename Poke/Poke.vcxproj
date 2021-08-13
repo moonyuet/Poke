@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>pkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;PK_BUILD_DLL;GLFW_INCLUDE_NONE;PK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>pkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;PK_BUILD_DLL;GLFW_INCLUDE_NONE;PK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>pkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;PK_BUILD_DLL;GLFW_INCLUDE_NONE;PK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -149,7 +149,7 @@
     <ClInclude Include="src\Poke\Core\Layer.h" />
     <ClInclude Include="src\Poke\Core\LayerStack.h" />
     <ClInclude Include="src\Poke\Core\Log.h" />
-    <ClInclude Include="src\Poke\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\Poke\Core\MouseCodes.h" />
     <ClInclude Include="src\Poke\Core\Timestep.h" />
     <ClInclude Include="src\Poke\Core\Window.h" />
     <ClInclude Include="src\Poke\Debug\Instrumentor.h" />
@@ -160,13 +160,15 @@
     <ClInclude Include="src\Poke\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Poke\Platform\WindowWindow.h" />
-    <ClInclude Include="src\Poke\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Poke\Renderer\Buffer.h" />
+    <ClInclude Include="src\Poke\Renderer\Camera.h" />
+    <ClInclude Include="src\Poke\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Poke\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Poke\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Poke\Renderer\OrthographicCameraController.h" />
@@ -177,6 +179,12 @@
     <ClInclude Include="src\Poke\Renderer\Shader.h" />
     <ClInclude Include="src\Poke\Renderer\Texture.h" />
     <ClInclude Include="src\Poke\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Poke\Scene\Components.h" />
+    <ClInclude Include="src\Poke\Scene\Entity.h" />
+    <ClInclude Include="src\Poke\Scene\Scene.h" />
+    <ClInclude Include="src\Poke\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Poke\Scene\SceneSerializer.h" />
+    <ClInclude Include="src\Poke\Scene\ScriptableEntity.h" />
     <ClInclude Include="src\pkpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -600,10 +608,12 @@
     <ClCompile Include="src\Poke\Core\Layer.cpp" />
     <ClCompile Include="src\Poke\Core\LayerStack.cpp" />
     <ClCompile Include="src\Poke\Core\Log.cpp" />
+    <ClCompile Include="src\Poke\Core\Window.cpp" />
     <ClCompile Include="src\Poke\ImGui\ImGuiImplBuild.cpp" />
     <ClCompile Include="src\Poke\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLTexture.cpp" />
@@ -611,6 +621,7 @@
     <ClCompile Include="src\Poke\Platform\WindowWindow.cpp" />
     <ClCompile Include="src\Poke\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Poke\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Poke\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Poke\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Poke\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Poke\Renderer\OrthographicCameraController.cpp" />
@@ -621,6 +632,10 @@
     <ClCompile Include="src\Poke\Renderer\Shader.cpp" />
     <ClCompile Include="src\Poke\Renderer\Texture.cpp" />
     <ClCompile Include="src\Poke\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Poke\Scene\Entity.cpp" />
+    <ClCompile Include="src\Poke\Scene\Scene.cpp" />
+    <ClCompile Include="src\Poke\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Poke\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\pkpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

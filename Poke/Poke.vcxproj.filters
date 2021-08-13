@@ -31,6 +31,9 @@
     <Filter Include="src\Poke\Renderer">
       <UniqueIdentifier>{B187DFB7-1D9E-DD4D-6615-696FD26AAED5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Poke\Scene">
+      <UniqueIdentifier>{0835EDC3-F402-E1C9-DD96-51F0C903BD2E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -84,7 +87,7 @@
     <ClInclude Include="src\Poke\Core\Log.h">
       <Filter>src\Poke\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\Core\MouseButtonCodes.h">
+    <ClInclude Include="src\Poke\Core\MouseCodes.h">
       <Filter>src\Poke\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Core\Timestep.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Poke\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLFramebuffer.h">
+      <Filter>src\Poke\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Poke\Platform\OpenGL\OpenGLRendererAPI.h">
       <Filter>src\Poke\Platform\OpenGL</Filter>
     </ClInclude>
@@ -132,10 +138,13 @@
     <ClInclude Include="src\Poke\Platform\WindowWindow.h">
       <Filter>src\Poke\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="src\Poke\Platform\Windows\WindowsInput.h">
-      <Filter>src\Poke\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="src\Poke\Renderer\Buffer.h">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Renderer\Camera.h">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Renderer\Framebuffer.h">
       <Filter>src\Poke\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Poke\Renderer\GraphicsContext.h">
@@ -167,6 +176,24 @@
     </ClInclude>
     <ClInclude Include="src\Poke\Renderer\VertexArray.h">
       <Filter>src\Poke\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Scene\Components.h">
+      <Filter>src\Poke\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Scene\Entity.h">
+      <Filter>src\Poke\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Scene\Scene.h">
+      <Filter>src\Poke\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Scene\SceneCamera.h">
+      <Filter>src\Poke\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Scene\SceneSerializer.h">
+      <Filter>src\Poke\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Poke\Scene\ScriptableEntity.h">
+      <Filter>src\Poke\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\pkpch.h">
       <Filter>src</Filter>
@@ -1433,6 +1460,9 @@
     <ClCompile Include="src\Poke\Core\Log.cpp">
       <Filter>src\Poke\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Poke\Core\Window.cpp">
+      <Filter>src\Poke\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Poke\ImGui\ImGuiImplBuild.cpp">
       <Filter>src\Poke\ImGui</Filter>
     </ClCompile>
@@ -1443,6 +1473,9 @@
       <Filter>src\Poke\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Poke\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Poke\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1464,6 +1497,9 @@
       <Filter>src\Poke\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\Buffer.cpp">
+      <Filter>src\Poke\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Renderer\Framebuffer.cpp">
       <Filter>src\Poke\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\GraphicsContext.cpp">
@@ -1495,6 +1531,18 @@
     </ClCompile>
     <ClCompile Include="src\Poke\Renderer\VertexArray.cpp">
       <Filter>src\Poke\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Scene\Entity.cpp">
+      <Filter>src\Poke\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Scene\Scene.cpp">
+      <Filter>src\Poke\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Scene\SceneCamera.cpp">
+      <Filter>src\Poke\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Poke\Scene\SceneSerializer.cpp">
+      <Filter>src\Poke\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\pkpch.cpp">
       <Filter>src</Filter>

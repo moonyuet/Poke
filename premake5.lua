@@ -7,7 +7,7 @@ workspace "Poke"
 		"Release",
 		"Dist"
 	}
-	startproject "Sandbox"
+	startproject "PokeNeedle"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
@@ -17,10 +17,12 @@ IncludeDir["Glad"] = "Poke/vendor/Glad/include"
 IncludeDir["ImGui"] = "Poke/vendor/imgui"
 IncludeDir["glm"] = "Poke/vendor/glm"
 IncludeDir["stb_image"] = "Poke/vendor/stb_image"
+IncludeDir["entt"] = "Poke/vendor/entt/include"
 
-include "Poke/vendor/GLFW"
-include "Poke/vendor/Glad"
-include "Poke/vendor/imgui"
+group "Dependencies"
+	include "Poke/vendor/GLFW"
+	include "Poke/vendor/Glad"
+	include "Poke/vendor/imgui"
 
 project "Poke"
 	location "Poke"
@@ -60,7 +62,8 @@ project "Poke"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 	links
 	{
@@ -120,7 +123,59 @@ project "Sandbox"
 		"Poke/vendor/spdlog/include",
 		"Poke/src",
 		"Poke/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
+	}
+
+	
+	filter "system:windows"
+		
+		staticruntime "On"
+		systemversion "latest"
+
+	
+	filter "configurations:Debug"
+		defines "PK_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "PK_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "PK_DIST"
+		runtime "Release"
+		optimize "on"
+
+project "PokeNeedle"
+	location "PokeNeedle"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+	
+	targetdir("bin/"..outputdir.."%{prj.name}")
+	objdir("bin-int/"..outputdir.."%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	links
+	{
+		"Poke"
+	}
+	includedirs
+	{
+		"Poke/vendor/spdlog/include",
+		"Poke/src",
+		"Poke/vendor",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
+		
 	}
 
 	

@@ -7,8 +7,6 @@ layout(location = 0) in vec3 a_Position;
 			
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
-	
-out vec3 v_Position;
 		
 
 void main()
@@ -22,7 +20,6 @@ void main()
 
 layout(location = 0) out vec4 color;
 			
-in vec3 v_Position;
 
 uniform vec4 u_Color;
 
